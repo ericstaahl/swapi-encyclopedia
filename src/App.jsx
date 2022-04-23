@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
 import { Routes, Route } from "react-router-dom"
 import Navigation from './components/Navigation';
