@@ -7,9 +7,8 @@ const Navigation = () => {
     return (
         <Navbar bg="dark" variant="dark">
             <Container fluid>
-                <NavbarBrand>The Star Wars encyclopedia</NavbarBrand>
+                <NavbarBrand as={Link} to="/">The Star Wars encyclopedia</NavbarBrand>
                 <Nav>
-                    <Nav.Link as={NavLink} to="/">Home</Nav.Link>
                     <Nav.Link as={NavLink} to="/films">Films</Nav.Link>
                 </Nav>
             </Container>
