@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import swapi from "../services/swapi"
-import { Container, Row, Col } from "react-bootstrap"
+import { Container, Row, Col, Button } from "react-bootstrap"
+import { Link } from "react-router-dom"
 
 const Films = () => {
   const [films, setFilms] = useState("")
@@ -29,6 +30,7 @@ const Films = () => {
                     <p>Episode: {film.episode_id}</p>
                     <p>Release date: {film.release_date}</p>
                     <p>Number of characters: {film.characters.length}</p>
+                    <Button as={Link} to={`/films/${film.episode_id}`}>Read more</Button>
                   </div>
                 </Col>
               )
