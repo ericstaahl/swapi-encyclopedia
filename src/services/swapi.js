@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const BASE_URL = "https://swapi.dev/api/"
+const BASE_URL = "https://swapi.dev/api"
 
 const getFilms = async () => {
     const res = await axios.get(`${BASE_URL}/films`)
@@ -8,7 +8,7 @@ const getFilms = async () => {
 }
 
 const getFilm = async (id) => {
-    const res = await axios.get(`${BASE_URL}/film/${id}`)
+    const res = await axios.get(`${BASE_URL}/films/${id}`)
     return res
 }
 
