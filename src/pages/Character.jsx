@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import swapi from "../services/swapi"
+import { getIdFromUrl } from "../helpers/urlExtract"
+import { Container } from "react-bootstrap"
 
 
 const Character = () => {
@@ -8,18 +10,41 @@ const Character = () => {
     console.log(id)
     const [character, setCharacter] = useState()
 
-    // const fetchCharacter = async () => {
-    //     const data = await swapi.getFilm(id)
-    //     console.log(data)
-    //     setCharacter(data.data)
-    // }
+    const fetchCharacter = async () => {
+        const data = await swapi.getCharacter(id)
+        console.log(data)
+        setCharacter(data.data)
+    }
+
+    useEffect(() => {
+        fetchCharacter()
+    }, [])
 
     return (
         <>
-            {true && (
-                <>
-                    ID of character: {id}
-                </>
+            {character && (
+                <Container>
+                    <h2>{character.name}</h2>
+                    <div>
+                        <p>Gender: {character.gender}</p>
+                        <p>Birth year: {character.birth_year}</p>
+                        <p>Height: {character.height}</p>
+                        <p>Mass: {character.mass}</p>
+                        <p>Homeworld: {character.homeworld}</p>
+                    </div>
+                    <h3>Links</h3>
+                    <div>
+                        {character.films.map(film => {
+                            const filmId = getIdFromUrl(film)
+                            // console.log(characterId)
+                            return (
+                                <div key={filmId}>
+                                    <Link to={`/films/${filmId}`}>{filmId}</Link>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </Container>
             )}
         </>
     )

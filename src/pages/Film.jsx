@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Button } from "react-bootstrap"
+import { Button, Container } from "react-bootstrap"
 import { Link, useParams } from "react-router-dom"
 import swapi from "../services/swapi"
 import { getIdFromUrl } from "../helpers/urlExtract"
@@ -23,7 +23,7 @@ const Film = () => {
     return (
         <>
             {film && (
-                <>
+                <Container>
                     <h2>{film.title}</h2>
                     <div>
                         <p>Director: {film.director}</p>
@@ -44,8 +44,9 @@ const Film = () => {
                             )
                         })}
                     </div>
-                </>
-            )}
+                </Container>
+            )
+            }
         </>
     )
 }
