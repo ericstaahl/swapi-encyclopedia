@@ -28,8 +28,8 @@ const Character = () => {
                     <div>
                         <p>Gender: {character.gender}</p>
                         <p>Birth year: {character.birth_year}</p>
-                        <p>Height: {character.height}</p>
-                        <p>Mass: {character.mass}</p>
+                        <p>Height: {character.height} cm</p>
+                        <p>Mass: {character.mass} kg</p>
                         <p>Homeworld: {character.homeworld}</p>
                     </div>
                     <h3>Links</h3>

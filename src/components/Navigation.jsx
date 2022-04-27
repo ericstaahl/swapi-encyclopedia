@@ -10,6 +10,7 @@ const Navigation = () => {
                 <NavbarBrand as={Link} to="/">The Star Wars encyclopedia</NavbarBrand>
                 <Nav>
                     <Nav.Link as={NavLink} to="/films">Films</Nav.Link>
+                    <Nav.Link as={NavLink} to="/people">Characters</Nav.Link>
                 </Nav>
             </Container>
         </Navbar>
