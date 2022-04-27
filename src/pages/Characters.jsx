@@ -18,18 +18,20 @@ const Films = () => {
 
   return (
     <>
-        <h1>Characters</h1>
       <Container>
-        <Row className="d-flex justify-content-start">
+      <h1>Characters</h1>
+        <Row className="d-flex justify-content-between g-4">
           {characters && (characters.map(character => {
             return (
-              <Col key={getIdFromUrl(character.url)} className="border border-primary rounded m-2" xs={3}>
-                <h2>{character.name}</h2>
-                <div className="align-self-end">
-                  <p>Gender: {character.gender}</p>
-                  <p>Birth year: {character.birth_year}</p>
-                  <p>In {character.films.length}</p>
-                  <Button as={Link} to={`/people/${getIdFromUrl(character.url)}`}>Read more</Button>
+              <Col key={getIdFromUrl(character.url)} xs={4}>
+                <div className="border border-primary rounded p-3">
+                  <h2>{character.name}</h2>
+                  <div>
+                    <p>Gender: {character.gender}</p>
+                    <p>Birth year: {character.birth_year}</p>
+                    <p>In {character.films.length}</p>
+                    <Button className="align-self-end" as={Link} to={`/people/${getIdFromUrl(character.url)}`}>Read more</Button>
+                  </div>
                 </div>
               </Col>
             )

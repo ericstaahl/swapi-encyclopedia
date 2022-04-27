@@ -17,14 +17,13 @@ const Films = () => {
 
   return (
     <>
-      <h1>Films</h1>
-      <div className="App">
-
-        <Container>
-          <Row className="d-flex justify-content-center">
-            {films && (films.map(film => {
-              return (
-                <Col className="border border-primary rounded m-2" xs={3} key={film.episode_id}>
+      <Container>
+        <h1>Films</h1>
+        <Row className="d-flex justify-content-center g-4">
+          {films && (films.map(film => {
+            return (
+              <Col xs={4} key={film.episode_id}>
+                <div className="border border-primary rounded p-3">
                   <h2>{film.title}</h2>
                   <div className="align-self-end">
                     <p>Episode: {film.episode_id}</p>
@@ -32,13 +31,13 @@ const Films = () => {
                     <p>Number of characters: {film.characters.length}</p>
                     <Button as={Link} to={`/films/${film.episode_id}`}>Read more</Button>
                   </div>
-                </Col>
-              )
-            }))}
-          </Row>
-        </Container>
+                </div>
+              </Col>
+            )
+          }))}
+        </Row>
+      </Container>
 
-      </div>
     </>
   )
 }
