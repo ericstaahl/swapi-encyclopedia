@@ -6,10 +6,28 @@ import { getIdFromUrl } from "../helpers/urlExtract"
 
 const Films = () => {
   const [characters, setCharacters] = useState("")
+  const [page, setPage] = useState(0)
+  const [nextPageUrl, setNextPageUrl] = useState(null)
+  const [prevPageUrl, setPrevPageUrl] = useState(null)
   const fetchCharacters = async () => {
     const data = await swapi.getCharacters()
     console.log(data)
     setCharacters(data.data.results)
+    setNextPageUrl(data.data.next)
+  }
+
+  const nextPage = async () => {
+    const data = await swapi.search(nextPageUrl)
+    setCharacters(data.data.results)
+    setNextPageUrl(data.data.next)
+    setPrevPageUrl(data.data.previous)
+  }
+
+  const prevPage = async () => {
+    const data = await swapi.search(prevPageUrl)
+    setCharacters(data.data.results)
+    setNextPageUrl(data.data.next)
+    setPrevPageUrl(data.data.previous)
   }
 
   useEffect(() => {
@@ -19,8 +37,8 @@ const Films = () => {
   return (
     <>
       <Container className="p-3">
-      <h1>Characters</h1>
-        <Row className="d-flex justify-content-between g-4">
+        <h1>Characters</h1>
+        <Row className="d-flex justify-content-start g-4">
           {characters && (characters.map(character => {
             return (
               <Col key={getIdFromUrl(character.url)} xs={4}>
@@ -36,6 +54,13 @@ const Films = () => {
               </Col>
             )
           }))}
+        </Row>
+        <Row className="m-3">
+          <Col className="d-flex justify-content-center">
+            <Button className="mx-2" disabled={prevPageUrl === null} onClick={prevPage}>{"< Page"}</Button>
+            <Button className="mx-2" disabled={nextPageUrl === null} onClick={nextPage}>{"Page >"}</Button>
+          </Col>
+
         </Row>
       </Container>
     </>

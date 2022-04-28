@@ -22,10 +22,16 @@ const getCharacter = async (id) => {
     return res
 }
 
+const search = async (url) => {
+    const res = await axios.get(url)
+    return res
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     getFilms,
     getFilm,
     getCharacters,
     getCharacter,
+    search,
 }
