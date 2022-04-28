@@ -12,7 +12,11 @@ const getFilm = async (id) => {
     return res
 }
 
-const getCharacters = async () => {
+const getCharacters = async (url) => {
+    if (url) {
+        const res = await axios.get(url)
+        return res        
+    }
     const res = await axios.get(`${BASE_URL}/people`)
     return res
 }
