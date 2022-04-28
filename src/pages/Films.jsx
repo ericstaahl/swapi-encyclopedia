@@ -17,7 +17,7 @@ const Films = () => {
 
   return (
     <>
-      <Container>
+      <Container className="p-3">
         <h1>Films</h1>
         <Row className="d-flex justify-content-center g-4">
           {films && (films.map(film => {

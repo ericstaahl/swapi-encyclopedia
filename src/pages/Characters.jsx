@@ -18,7 +18,7 @@ const Films = () => {
 
   return (
     <>
-      <Container>
+      <Container className="p-3">
       <h1>Characters</h1>
         <Row className="d-flex justify-content-between g-4">
           {characters && (characters.map(character => {
@@ -29,7 +29,7 @@ const Films = () => {
                   <div>
                     <p>Gender: {character.gender}</p>
                     <p>Birth year: {character.birth_year}</p>
-                    <p>In {character.films.length}</p>
+                    <p>{character.films.length <= 1 ? `In ${character.films.length} film` : `In ${character.films.length} films`}</p>
                     <Button className="align-self-end" as={Link} to={`/people/${getIdFromUrl(character.url)}`}>Read more</Button>
                   </div>
                 </div>

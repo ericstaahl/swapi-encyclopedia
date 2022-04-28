@@ -23,7 +23,7 @@ const Film = () => {
     return (
         <>
             {film && (
-                <Container>
+                <Container className="p-3">
                     <h2>{film.title}</h2>
                     <div>
                         <p>Director: {film.director}</p>
@@ -32,7 +32,7 @@ const Film = () => {
                         <p>Release date: {film.release_date}</p>
                         <p>Number of characters: {film.characters.length}</p>
                     </div>
-                    <h3>Links</h3>
+                    <h3>Characters in the film:</h3>
                     <div>
                         {film.characters.map(characterURL => {
                             const characterId = getIdFromUrl(characterURL)

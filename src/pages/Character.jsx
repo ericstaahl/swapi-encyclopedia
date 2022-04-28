@@ -23,7 +23,7 @@ const Character = () => {
     return (
         <>
             {character && (
-                <Container>
+                <Container className="p-3">
                     <h2>{character.name}</h2>
                     <div>
                         <p>Gender: {character.gender}</p>
@@ -32,14 +32,14 @@ const Character = () => {
                         <p>Mass: {character.mass} kg</p>
                         <p>Homeworld: {character.homeworld}</p>
                     </div>
-                    <h3>Links</h3>
+                    <h3>In films:</h3>
                     <div>
                         {character.films.map(film => {
                             const filmId = getIdFromUrl(film)
                             // console.log(characterId)
                             return (
                                 <div key={filmId}>
-                                    <Link to={`/films/${filmId}`}>{filmId}</Link>
+                                    <Link to={`/films/${filmId}`}>Film {filmId}</Link>
                                 </div>
                             )
                         })}
