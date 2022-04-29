@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react"
 import swapi from "../services/swapi"
 import { Container, Row, Col, Button } from "react-bootstrap"
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import { getIdFromUrl } from "../helpers/urlExtract"
+
 
 const Films = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -10,16 +11,25 @@ const Films = () => {
   const [page, setPage] = useState(1)
   const [nextPageUrl, setNextPageUrl] = useState(null)
   const [prevPageUrl, setPrevPageUrl] = useState(null)
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  // const pageQuery = () => {
+  //   return { page: page }
+  // }
 
   const fetchCharacters = async (url) => {
     setIsLoading(true)
     if (url) {
+      // setSearchParams(pageQuery())
       const data = await swapi.getCharacters(url)
       console.log(data)
       setApiResponse(data.data)
       setNextPageUrl(data.data.next)
       setPrevPageUrl(data.data.previous)
       setIsLoading(false)
+      if (page > 1) {
+        setSearchParams({page: page})
+      }
       return
     }
     const data = await swapi.getCharacters()
@@ -44,9 +54,23 @@ const Films = () => {
   //   setPrevPageUrl(data.data.previous)
   // }
 
+  // useEffect(() => {
+  // }, [])
+
   useEffect(() => {
-    fetchCharacters()
+    console.log(searchParams)
+    if (searchParams.get('page')) {
+      console.log("DENNA KÖRS!")
+      console.log(typeof searchParams.get('page'))
+      setPage(Number(searchParams.get('page')))
+      fetchCharacters(`https://swapi.dev/api/people/?${searchParams}`)
+    }
+    else {
+      fetchCharacters()
+    }
   }, [])
+
+
 
   return (
     <>
