@@ -5,17 +5,21 @@ import { Link } from "react-router-dom"
 import { getIdFromUrl } from "../helpers/urlExtract"
 
 const Films = () => {
+  const [isLoading, setIsLoading] = useState(false)
   const [apiResponse, setApiResponse] = useState("")
   const [page, setPage] = useState(1)
   const [nextPageUrl, setNextPageUrl] = useState(null)
   const [prevPageUrl, setPrevPageUrl] = useState(null)
+
   const fetchCharacters = async (url) => {
+    setIsLoading(true)
     if (url) {
       const data = await swapi.getCharacters(url)
       console.log(data)
       setApiResponse(data.data)
       setNextPageUrl(data.data.next)
       setPrevPageUrl(data.data.previous)
+      setIsLoading(false)
       return
     }
     const data = await swapi.getCharacters()
@@ -23,6 +27,7 @@ const Films = () => {
     setApiResponse(data.data)
     setNextPageUrl(data.data.next)
     setPrevPageUrl(data.data.previous)
+    setIsLoading(false)
   }
 
   // const nextPage = async () => {
@@ -48,6 +53,7 @@ const Films = () => {
       <Container className="p-3">
         <h1>Characters</h1>
         <Row className="d-flex justify-content-start g-4">
+
           {apiResponse && (apiResponse.results.map(character => {
             return (
               <Col key={getIdFromUrl(character.url)} xs={4}>
@@ -63,24 +69,30 @@ const Films = () => {
               </Col>
             )
           }))}
+
         </Row>
+
         <Row className="m-3">
           <Col className="d-flex justify-content-center">
-            <Button className="mx-2" disabled={prevPageUrl === null}
+
+            <Button className="mx-2" disabled={prevPageUrl === null || isLoading}
               onClick={() => {
                 const pageNumber = page - 1
                 setPage(pageNumber)
                 fetchCharacters(prevPageUrl)
               }}>{"< Page"}
             </Button>
+
             <p>{page}/{Math.ceil(apiResponse.count / 10)}</p>
-            <Button className="mx-2" disabled={nextPageUrl === null}
+
+            <Button className="mx-2" disabled={nextPageUrl === null || isLoading}
               onClick={() => {
                 const pageNumber = page + 1
                 setPage(pageNumber)
                 fetchCharacters(nextPageUrl)
               }}>{"Page >"}
             </Button>
+
           </Col>
 
         </Row>
