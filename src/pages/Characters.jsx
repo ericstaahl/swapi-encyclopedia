@@ -59,7 +59,7 @@ const Films = () => {
 
   useEffect(() => {
       setSearchParams({ page: page })
-  }, [page])
+  }, [page, setSearchParams])
 
   useEffect(() => {
     console.log(searchParams)
