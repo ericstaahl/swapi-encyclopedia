@@ -2,24 +2,23 @@ import { useState, useEffect } from "react"
 import { Form, Button } from "react-bootstrap"
 import { useSearchParams } from "react-router-dom"
 
-const ResourceSearch = (props) => {
-  // console.log(props)
+const ResourceSearch = ({ resource, fetchSearch,  }) => {
   const baseURL = "https://swapi.dev/api"
   const [searchQuery, setSearchQuery] = useState('')
   const [searchParams, setSearchParams] = useSearchParams()
 
-  // console.log(searchQuery)
-
   const handleFormSubmit = (e) => {
     e.preventDefault()
     setSearchParams({ search: searchQuery })
-    console.log(`${baseURL}${props.resource}${searchParams}`)
-    props.fetchSearch(`${baseURL}${props.resource}?${searchParams}`)
+    // fetchSearch(`${baseURL}${resource}?${searchParams}`)
+    // console.log(`${baseURL}${props.resource}${searchParams}`)
   }
 
-  // useEffect(() => {
-  //   setSearchParams({ search: searchQuery })
-  // }, [searchQuery])
+  useEffect(() => {
+    if(searchParams.get('search')) {
+      fetchSearch(`${baseURL}${resource}?${searchParams}`)
+    }
+  }, [searchParams, fetchSearch, resource])
 
   return (
     <>

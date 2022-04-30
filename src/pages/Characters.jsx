@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import swapi from "../services/swapi"
 import { Container, Row, Col, Button } from "react-bootstrap"
 import { Link, useSearchParams } from "react-router-dom"
@@ -58,15 +58,16 @@ const Characters = () => {
   // useEffect(() => {
   // }, [])
 
-  const fetchSearch = async (url) => {
-    setIsLoading(true)
-    const data = await swapi.getCharacters(url)
-    console.log(data)
-    setNextPageUrl(data.data.next)
-    setPrevPageUrl(data.data.previous)
-    setApiResponse(data.data)
-    setIsLoading(false)
-  }
+  const fetchSearch = useCallback(
+    async (url) => {
+      setIsLoading(true)
+      const data = await swapi.getCharacters(url)
+      console.log(data)
+      setNextPageUrl(data.data.next)
+      setPrevPageUrl(data.data.previous)
+      setApiResponse(data.data)
+      setIsLoading(false)
+    }, [])
 
   useEffect(() => {
     setSearchParams({ page: page })
