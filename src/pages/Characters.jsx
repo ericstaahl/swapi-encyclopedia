@@ -61,10 +61,12 @@ const Films = () => {
       setSearchParams({ page: page })
   }, [page, setSearchParams])
 
+  // Only run on initial render.
+  // Therefore ignoring the lint error about missing dependency.
   useEffect(() => {
     console.log(searchParams)
     if (searchParams.get('page')) {
-      console.log("DENNA KÖRS!")
+      console.log("Initial render is running")
       console.log(typeof Number(searchParams.get('page')))
       setPage(Number(searchParams.get('page')))
       fetchCharacters(`https://swapi.dev/api/people/?${searchParams}`)
