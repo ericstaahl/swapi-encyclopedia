@@ -3,9 +3,10 @@ import swapi from "../services/swapi"
 import { Container, Row, Col, Button } from "react-bootstrap"
 import { Link, useSearchParams } from "react-router-dom"
 import { getIdFromUrl } from "../helpers/urlExtract"
+import ResourceSearch from "../components/ResourceSearch"
 
 
-const Films = () => {
+const Characters = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [apiResponse, setApiResponse] = useState("")
   const [page, setPage] = useState(1)
@@ -57,8 +58,18 @@ const Films = () => {
   // useEffect(() => {
   // }, [])
 
+  const fetchSearch = async (url) => {
+    setIsLoading(true)
+    const data = await swapi.getCharacters(url)
+    console.log(data)
+    setNextPageUrl(data.data.next)
+    setPrevPageUrl(data.data.previous)
+    setApiResponse(data.data)
+    setIsLoading(false)
+  }
+
   useEffect(() => {
-      setSearchParams({ page: page })
+    setSearchParams({ page: page })
   }, [page, setSearchParams])
 
   // Only run on initial render.
@@ -81,6 +92,9 @@ const Films = () => {
   return (
     <>
       <Container className="p-3">
+        <Col className="m-auto" xs={8}>
+          <ResourceSearch resource="/people/" fetchSearch={fetchSearch}></ResourceSearch>
+        </Col>
         <h1>Characters</h1>
         <Row className="d-flex justify-content-start g-4">
 
@@ -129,4 +143,4 @@ const Films = () => {
   )
 }
 
-export default Films
+export default Characters
