@@ -27,9 +27,9 @@ const Films = () => {
       setNextPageUrl(data.data.next)
       setPrevPageUrl(data.data.previous)
       setIsLoading(false)
-      if (page > 1) {
-        setSearchParams({page: page})
-      }
+      // if (page > 1) {
+      //   setSearchParams({page: page})
+      // }
       return
     }
     const data = await swapi.getCharacters()
@@ -58,10 +58,14 @@ const Films = () => {
   // }, [])
 
   useEffect(() => {
+      setSearchParams({ page: page })
+  }, [page])
+
+  useEffect(() => {
     console.log(searchParams)
     if (searchParams.get('page')) {
       console.log("DENNA KÖRS!")
-      console.log(typeof searchParams.get('page'))
+      console.log(typeof Number(searchParams.get('page')))
       setPage(Number(searchParams.get('page')))
       fetchCharacters(`https://swapi.dev/api/people/?${searchParams}`)
     }
@@ -101,8 +105,7 @@ const Films = () => {
 
             <Button className="mx-2" disabled={prevPageUrl === null || isLoading}
               onClick={() => {
-                const pageNumber = page - 1
-                setPage(pageNumber)
+                setPage(page - 1)
                 fetchCharacters(prevPageUrl)
               }}>{"< Page"}
             </Button>
@@ -111,8 +114,7 @@ const Films = () => {
 
             <Button className="mx-2" disabled={nextPageUrl === null || isLoading}
               onClick={() => {
-                const pageNumber = page + 1
-                setPage(pageNumber)
+                setPage(page + 1)
                 fetchCharacters(nextPageUrl)
               }}>{"Page >"}
             </Button>
