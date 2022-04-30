@@ -10,15 +10,15 @@ const Character = () => {
     console.log(id)
     const [character, setCharacter] = useState()
 
-    const fetchCharacter = async () => {
-        const data = await swapi.getCharacter(id)
-        console.log(data)
-        setCharacter(data.data)
-    }
-
+    
     useEffect(() => {
+        const fetchCharacter = async () => {
+            const data = await swapi.getCharacter(id)
+            console.log(data)
+            setCharacter(data.data)
+        }
         fetchCharacter()
-    }, [])
+    }, [id])
 
     return (
         <>
