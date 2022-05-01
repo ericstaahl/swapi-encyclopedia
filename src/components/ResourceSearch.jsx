@@ -14,18 +14,17 @@ const ResourceSearch = ({ resource, fetchSearch,  }) => {
     // console.log(`${baseURL}${props.resource}${searchParams}`)
   }
 
-  useEffect(() => {
-    if(searchParams.get('search')) {
-      fetchSearch(`${baseURL}${resource}?${searchParams}`)
-    }
-  }, [searchParams, fetchSearch, resource])
+  // useEffect(() => {
+  //   console.log("useEffect in ResourceSearch is running.")
+  //   if(searchParams.get('search')) {
+  //     fetchSearch(`${baseURL}${resource}?${searchParams}`)
+  //   }
+  // }, [searchParams, fetchSearch, resource])
 
   return (
     <>
-      <Form onSubmit={handleFormSubmit}>
-        <Form.Group className="d-flex align-items-center">
-
-          <Form.Label className="mx-2">Search</Form.Label>
+      <Form className="d-flex align-items-center justify-content-center" onSubmit={handleFormSubmit}>
+        <Form.Group >
           <Form.Control
             type="input"
             placeholder="Enter your search query here..."
