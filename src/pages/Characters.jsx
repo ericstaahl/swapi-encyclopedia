@@ -103,7 +103,7 @@ const Characters = () => {
     <>
       <Container className="p-3">
         <Col className="m-auto" xs={8}>
-          <ResourceSearch resource="/people/" fetchSearch={fetchSearch}></ResourceSearch>
+          <ResourceSearch></ResourceSearch>
         </Col>
         <h1>Characters</h1>
         <Row className="d-flex justify-content-start g-4">

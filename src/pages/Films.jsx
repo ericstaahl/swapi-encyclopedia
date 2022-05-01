@@ -1,23 +1,42 @@
 import { useState, useEffect } from "react"
 import swapi from "../services/swapi"
 import { Container, Row, Col, Button } from "react-bootstrap"
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
+import ResourceSearch from "../components/ResourceSearch"
 
 const Films = () => {
   const [films, setFilms] = useState("")
-  const fetchFilms = async () => {
-    const data = await swapi.getFilms()
+  const [searchParams] = useSearchParams()
+  const baseURL = "https://swapi.dev/api"
+
+  const fetchFilms = async (url) => {
+    console.log("Fetching films")
+    const data = await swapi.getFilms(url)
     console.log(data)
     setFilms(data.data.results)
   }
 
+  // Only run on initial render.
+  // Therefore ignoring the lint error about missing dependency.
   useEffect(() => {
-    fetchFilms()
+    if(!searchParams.get('search')) {
+      fetchFilms()
+    }
   }, [])
+
+  useEffect(() => {
+    console.log(searchParams)
+    if(searchParams.get('search')) {
+      fetchFilms(`${baseURL}/films/?${searchParams}`)
+    }
+  }, [searchParams])
 
   return (
     <>
       <Container className="p-3">
+      <Col className="m-auto" xs={8}>
+          <ResourceSearch></ResourceSearch>
+        </Col>
         <h1>Films</h1>
         <Row className="d-flex justify-content-center g-4">
           {films && (films.map(film => {

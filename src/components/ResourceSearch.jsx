@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { Form, Button } from "react-bootstrap"
 import { useSearchParams } from "react-router-dom"
 
-const ResourceSearch = ({ resource, fetchSearch,  }) => {
+const ResourceSearch = () => {
   const baseURL = "https://swapi.dev/api"
   const [searchQuery, setSearchQuery] = useState('')
   const [searchParams, setSearchParams] = useSearchParams()

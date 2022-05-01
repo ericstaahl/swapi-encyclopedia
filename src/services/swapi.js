@@ -2,7 +2,11 @@ import axios from "axios"
 
 const BASE_URL = "https://swapi.dev/api"
 
-const getFilms = async () => {
+const getFilms = async (url) => {
+    if (url) {
+        const res = await axios.get(url)
+        return res        
+    }
     const res = await axios.get(`${BASE_URL}/films`)
     return res
 }
