@@ -5,7 +5,6 @@ import { Link, useSearchParams } from "react-router-dom"
 import { getIdFromUrl } from "../helpers/urlExtract"
 import ResourceSearch from "../components/ResourceSearch"
 
-
 const Characters = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [apiResponse, setApiResponse] = useState("")
@@ -30,9 +29,6 @@ const Characters = () => {
       setNextPageUrl(data.data.next)
       setPrevPageUrl(data.data.previous)
       setIsLoading(false)
-      // if (page > 1) {
-      //   setSearchParams({page: page})
-      // }
       return
     }
     const data = await swapi.getCharacters()
@@ -42,34 +38,6 @@ const Characters = () => {
     setPrevPageUrl(data.data.previous)
     setIsLoading(false)
   }
-
-  // const nextPage = async () => {
-  //   const data = await swapi.search(nextPageUrl)
-  //   setCharacters(data.data.results)
-  //   setNextPageUrl(data.data.next)
-  //   setPrevPageUrl(data.data.previous)
-  // }
-
-  // const prevPage = async () => {
-  //   const data = await swapi.search(prevPageUrl)
-  //   setCharacters(data.data.results)
-  //   setNextPageUrl(data.data.next)
-  //   setPrevPageUrl(data.data.previous)
-  // }
-
-  // useEffect(() => {
-  // }, [])
-
-  const fetchSearch = useCallback(
-    async (url) => {
-      setIsLoading(true)
-      const data = await swapi.getCharacters(url)
-      console.log(data)
-      setNextPageUrl(data.data.next)
-      setPrevPageUrl(data.data.previous)
-      setApiResponse(data.data)
-      setIsLoading(false)
-    }, [])
 
   useEffect(() => {
     setSearchParams({ page: page })
@@ -85,14 +53,16 @@ const Characters = () => {
       fetchCharacters(`https://swapi.dev/api/people/?${searchParams}`)
       return
     }
-    if(!searchParams.get('search')) {
+    if (!searchParams.get('search')) {
       fetchCharacters()
     }
   }, [])
 
   useEffect(() => {
     console.log(searchParams)
-    if(searchParams.get('search')) {
+    if (searchParams.get('search')) {
+      console.log("Search running")
+      setPage(1)
       fetchCharacters(`${baseURL}/people/?${searchParams}`)
     }
   }, [searchParams])
@@ -102,9 +72,16 @@ const Characters = () => {
   return (
     <>
       <Container className="p-3">
-        <Col className="m-auto" xs={8}>
-          <ResourceSearch></ResourceSearch>
-        </Col>
+        <Row>
+          <Col className="m-auto" xs={8}>
+            <ResourceSearch></ResourceSearch>
+          </Col>
+        </Row>
+        <Button onClick={() => {
+          setPage(1)
+          fetchCharacters()
+        }}>Reset</Button>
+
         <h1>Characters</h1>
         <Row className="d-flex justify-content-start g-4">
 

@@ -10,20 +10,11 @@ const ResourceSearch = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault()
     setSearchParams({ search: searchQuery })
-    // fetchSearch(`${baseURL}${resource}?${searchParams}`)
-    // console.log(`${baseURL}${props.resource}${searchParams}`)
   }
-
-  // useEffect(() => {
-  //   console.log("useEffect in ResourceSearch is running.")
-  //   if(searchParams.get('search')) {
-  //     fetchSearch(`${baseURL}${resource}?${searchParams}`)
-  //   }
-  // }, [searchParams, fetchSearch, resource])
 
   return (
     <>
-      <Form className="d-flex align-items-center justify-content-center" onSubmit={handleFormSubmit}>
+      <Form className="d-flex align-items-center justify-content-center m-0" onSubmit={handleFormSubmit}>
         <Form.Group >
           <Form.Control
             type="input"

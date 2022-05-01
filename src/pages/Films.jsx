@@ -19,14 +19,14 @@ const Films = () => {
   // Only run on initial render.
   // Therefore ignoring the lint error about missing dependency.
   useEffect(() => {
-    if(!searchParams.get('search')) {
+    if (!searchParams.get('search')) {
       fetchFilms()
     }
   }, [])
 
   useEffect(() => {
     console.log(searchParams)
-    if(searchParams.get('search')) {
+    if (searchParams.get('search')) {
       fetchFilms(`${baseURL}/films/?${searchParams}`)
     }
   }, [searchParams])
@@ -34,11 +34,11 @@ const Films = () => {
   return (
     <>
       <Container className="p-3">
-      <Col className="m-auto" xs={8}>
+        <Col className="m-auto" xs={8}>
           <ResourceSearch></ResourceSearch>
         </Col>
         <h1>Films</h1>
-        <Row className="d-flex justify-content-center g-4">
+        <Row className="d-flex justify-content-start g-4">
           {films && (films.map(film => {
             return (
               <Col xs={4} key={film.episode_id}>
