@@ -15,10 +15,6 @@ const Characters = () => {
 
   const baseURL = "https://swapi.dev/api"
 
-  // const pageQuery = () => {
-  //   return { page: page }
-  // }
-
   const fetchCharacters = async (url) => {
     setIsLoading(true)
     if (url) {
@@ -73,21 +69,25 @@ const Characters = () => {
     <>
       <Container className="p-3">
         <Row>
-          <Col className="m-auto" xs={8}>
+          <Col className="d-flex justify-content-center" xs={12}>
+            <Button
+              onClick={() => {
+                setPage(1)
+                fetchCharacters()
+              }}
+              className="m-2"
+              >Reset
+            </Button>
             <ResourceSearch></ResourceSearch>
           </Col>
         </Row>
-        <Button onClick={() => {
-          setPage(1)
-          fetchCharacters()
-        }}>Reset</Button>
 
         <h1>Characters</h1>
         <Row className="d-flex justify-content-start g-4">
 
           {apiResponse && (apiResponse.results.map(character => {
             return (
-              <Col key={getIdFromUrl(character.url)} xs={4}>
+              <Col key={getIdFromUrl(character.url)} md={4}>
                 <div className="border border-primary rounded p-3">
                   <h2>{character.name}</h2>
                   <div>

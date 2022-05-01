@@ -34,14 +34,23 @@ const Films = () => {
   return (
     <>
       <Container className="p-3">
-        <Col className="m-auto" xs={8}>
-          <ResourceSearch></ResourceSearch>
-        </Col>
+      <Row>
+          <Col className="d-flex justify-content-center" xs={12}>
+            <Button
+              onClick={() => {
+                fetchFilms()
+              }}
+              className="m-2"
+              >Reset
+            </Button>
+            <ResourceSearch></ResourceSearch>
+          </Col>
+        </Row>
         <h1>Films</h1>
         <Row className="d-flex justify-content-start g-4">
           {films && (films.map(film => {
             return (
-              <Col xs={4} key={film.episode_id}>
+              <Col md={4} key={film.episode_id}>
                 <div className="border border-primary rounded p-3">
                   <h2>{film.title}</h2>
                   <div className="align-self-end">
