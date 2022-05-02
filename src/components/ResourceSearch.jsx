@@ -1,15 +1,12 @@
 import { useState } from "react"
 import { Form, Button } from "react-bootstrap"
-import { useSearchParams } from "react-router-dom"
 
-const ResourceSearch = () => {
+const ResourceSearch = (props) => {
   const [searchQuery, setSearchQuery] = useState('')
-  // Crashes if I try to remove searchParams
-  const [searchParams, setSearchParams] = useSearchParams()
 
   const handleFormSubmit = (e) => {
     e.preventDefault()
-    setSearchParams({ search: searchQuery })
+    props.onSearch(searchQuery)
   }
 
   return (

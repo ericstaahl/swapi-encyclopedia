@@ -26,6 +26,12 @@ const Films = () => {
     setIsLoading(false)
   }
 
+  // Function to be passed down as a prop to ResourceSearch
+  // Sets searchParams which triggers a search and a rerender
+  const onSearch = (searchQuery) => {
+    setSearchParams({ search: searchQuery })
+  }
+
   // set SearchParams to the current page number so 
   // that you can navigate to it directly from the browser url search bar
   // unfortunately does not work with the broswer navigation buttons
@@ -47,7 +53,7 @@ const Films = () => {
     if (!searchParams.get('search')) {
       fetchFilms()
     }
-  }, [])
+  }, [searchParams])
 
   useEffect(() => {
     console.log(searchParams)
@@ -78,7 +84,7 @@ const Films = () => {
             >Reset
             </Button>
 
-            <ResourceSearch></ResourceSearch>
+            <ResourceSearch onSearch={onSearch}></ResourceSearch>
 
           </Col>
 

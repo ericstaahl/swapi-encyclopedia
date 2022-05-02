@@ -35,6 +35,12 @@ const Characters = () => {
     setIsLoading(false)
   }
 
+  // Function to be passed down as a prop to ResourceSearch
+  // Sets searchParams which triggers a search and a rerender
+  const onSearch = (searchQuery) => {
+    setSearchParams({ search: searchQuery })
+  }
+
   // set SearchParams to the current page number so 
   // that you can navigate to it directly from the browser url search bar
   // unfortunately does not work with the broswer navigation buttons
@@ -56,7 +62,7 @@ const Characters = () => {
     if (!searchParams.get('search')) {
       fetchCharacters()
     }
-  }, [])
+  }, [searchParams])
 
   // fetch data using the search query everytime searchParams is set.
 
@@ -91,7 +97,7 @@ const Characters = () => {
               className="m-2"
             >Reset
             </Button>
-            <ResourceSearch></ResourceSearch>
+            <ResourceSearch onSearch={onSearch}></ResourceSearch>
           </Col>
 
         </Row>
