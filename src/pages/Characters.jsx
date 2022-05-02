@@ -12,6 +12,7 @@ const Characters = () => {
   const [nextPageUrl, setNextPageUrl] = useState(null)
   const [prevPageUrl, setPrevPageUrl] = useState(null)
   const [searchParams, setSearchParams] = useSearchParams()
+  const [savedQuery, setSavedQuery] = useState('');
 
   const baseURL = "https://swapi.dev/api"
 
@@ -59,7 +60,9 @@ const Characters = () => {
     if (searchParams.get('search')) {
       console.log("Search running")
       setPage(1)
+      setSavedQuery(searchParams.get('search'))
       fetchCharacters(`${baseURL}/people/?${searchParams}`)
+
     }
   }, [searchParams])
 
@@ -68,18 +71,33 @@ const Characters = () => {
   return (
     <>
       <Container className="p-3">
+
         <Row>
+
           <Col className="d-flex justify-content-center" xs={12}>
             <Button
               onClick={() => {
                 setPage(1)
+                setSavedQuery('')
                 fetchCharacters()
               }}
               className="m-2"
-              >Reset
+            >Reset
             </Button>
             <ResourceSearch></ResourceSearch>
           </Col>
+
+        </Row>
+
+        <Row>
+
+          <Col xs={8}>
+            {savedQuery && (
+              <div>
+                <p>Search results for {savedQuery}</p>
+              </div>
+            )}</Col>
+
         </Row>
 
         <h1>Characters</h1>
@@ -102,7 +120,6 @@ const Characters = () => {
           }))}
 
         </Row>
-
         <Row className="m-3">
           <Col className="d-flex justify-content-center">
 
@@ -123,8 +140,8 @@ const Characters = () => {
             </Button>
 
           </Col>
-
         </Row>
+
       </Container>
     </>
   )

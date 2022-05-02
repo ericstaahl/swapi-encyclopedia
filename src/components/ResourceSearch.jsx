@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Form, Button } from "react-bootstrap"
 import { useSearchParams } from "react-router-dom"
 
@@ -27,6 +27,12 @@ const ResourceSearch = () => {
         </Form.Group>
         <Button type="submit" className="mx-2">Search</Button>
       </Form>
+{/* 
+      {searchParams.get('search') && (
+        <div>
+          <p>Search results for {savedQuery}</p>
+        </div>
+      )} */}
     </>
   )
 }

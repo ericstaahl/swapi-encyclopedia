@@ -34,19 +34,25 @@ const Films = () => {
   return (
     <>
       <Container className="p-3">
-      <Row>
+
+        <Row>
           <Col className="d-flex justify-content-center" xs={12}>
+
             <Button
               onClick={() => {
                 fetchFilms()
               }}
               className="m-2"
-              >Reset
+            >Reset
             </Button>
+
             <ResourceSearch></ResourceSearch>
+
           </Col>
         </Row>
+
         <h1>Films</h1>
+
         <Row className="d-flex justify-content-start g-4">
           {films && (films.map(film => {
             return (
@@ -64,8 +70,8 @@ const Films = () => {
             )
           }))}
         </Row>
-      </Container>
 
+      </Container>
     </>
   )
 }
