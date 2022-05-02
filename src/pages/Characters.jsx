@@ -62,7 +62,7 @@ const Characters = () => {
     if (!searchParams.get('search')) {
       fetchCharacters()
     }
-  }, [searchParams])
+  }, [])
 
   // fetch data using the search query everytime searchParams is set.
 
@@ -135,6 +135,10 @@ const Characters = () => {
               </Col>
             )
           }))}
+
+          {apiResponse && apiResponse.count === 0 && (
+            <p>No results were found</p>
+          )}
 
         </Row>
 

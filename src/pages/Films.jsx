@@ -122,6 +122,10 @@ const Films = () => {
               </Col>
             )
           }))}
+          
+          {apiResponse && apiResponse.count === 0 && (
+            <p>No results were found</p>
+          )}
 
         </Row>
 
