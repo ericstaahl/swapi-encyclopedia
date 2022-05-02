@@ -6,7 +6,7 @@ import ResourceSearch from "../components/ResourceSearch"
 
 const Films = () => {
   const [apiResponse, setApiResponse] = useState("")
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const baseURL = "https://swapi.dev/api"
   const [page, setPage] = useState(1)
   const [savedQuery, setSavedQuery] = useState('');
@@ -26,9 +26,24 @@ const Films = () => {
     setIsLoading(false)
   }
 
+    // set SearchParams to the current page number so 
+  // that you can navigate to it directly from the browser url search bar
+  // unfortunately does not work with the broswer navigation buttons
+
+  useEffect(() => {
+    setSearchParams({ page: page })
+  }, [page, setSearchParams])
+
   // Only run on initial render.
   // Therefore ignoring the lint error about missing dependency.
   useEffect(() => {
+    if (searchParams.get('page')) {
+      console.log("Initial render is running")
+      console.log(typeof Number(searchParams.get('page')))
+      setPage(Number(searchParams.get('page')))
+      fetchFilms(`https://swapi.dev/api/films/?${searchParams}`)
+      return
+    }
     if (!searchParams.get('search')) {
       fetchFilms()
     }
