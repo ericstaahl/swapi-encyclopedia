@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect } from "react"
 import swapi from "../services/swapi"
 import { Container, Row, Col, Button } from "react-bootstrap"
 import { Link, useSearchParams } from "react-router-dom"
@@ -87,7 +87,7 @@ const Characters = () => {
             </Button>
             <ResourceSearch></ResourceSearch>
           </Col>
-          
+
         </Row>
 
         <Row>

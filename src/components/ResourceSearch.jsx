@@ -1,10 +1,10 @@
-import { useState, useEffect, useRef } from "react"
+import { useState } from "react"
 import { Form, Button } from "react-bootstrap"
 import { useSearchParams } from "react-router-dom"
 
 const ResourceSearch = () => {
-  const baseURL = "https://swapi.dev/api"
   const [searchQuery, setSearchQuery] = useState('')
+  // Crashes if I try to remove searchParams
   const [searchParams, setSearchParams] = useSearchParams()
 
   const handleFormSubmit = (e) => {
