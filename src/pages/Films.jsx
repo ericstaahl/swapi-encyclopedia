@@ -119,7 +119,7 @@ const Films = () => {
             </Button>
 
             <p>{page}/
-              {apiResponse.count ? Math.ceil(apiResponse.count / 10) : 1}
+              {apiResponse.count === 0 ? 1 : Math.ceil(apiResponse.count / 10)}
             </p>
 
             <Button
