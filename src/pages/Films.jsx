@@ -13,6 +13,7 @@ const Films = () => {
   const [nextPageUrl, setNextPageUrl] = useState(null)
   const [prevPageUrl, setPrevPageUrl] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [isInitialRender, setIsInitialRender] = useState(true)
 
 
   const fetchFilms = async (url) => {
@@ -37,37 +38,41 @@ const Films = () => {
   const initialRender = useCallback(() => {
     // Needs to check this if user "navigates" to a search using the
     // browser navigation buttons or directly via url  
-    console.log(searchParams.get('search'))
-    console.log(searchParams.get('page'))
-
     if (searchParams.get('page') === null && searchParams.get('search') === null) {
       console.log("Initial fetch")
       fetchFilms()
+      setIsInitialRender(false)
     }
+  }, [searchParams])
 
-    console.log(searchParams)
+  // fetch data if user navigates to a page without using the pagination buttons.
+  useEffect(() => {
+    if (searchParams.get('page')) {
+      console.log("Page search running")
+      setPage(Number(searchParams.get('page')))
+      fetchFilms(`${baseURL}/films/?${searchParams}`)
+    }
+  }, [searchParams])
+
+  // fetch data using the search query everytime searchParams is set.
+  useEffect(() => {
     if (searchParams.get('search')) {
       console.log("Search running")
       setPage(1)
       setSavedQuery(searchParams.get('search'))
       fetchFilms(`${baseURL}/films/?${searchParams}`)
     }
-
-    if (searchParams.get('page')) {
-      console.log("Page search running")
-      setPage(Number(searchParams.get('page')))
-      fetchFilms(`${baseURL}/films/?${searchParams}`)
-    }
-
   }, [searchParams])
 
   // set SearchParams to the current page number so 
   // that you can navigate to it directly from the browser url search bar
   // unfortunately does not work with the broswer navigation buttons
 
-  // useEffect(() => {
-  //   setSearchParams({ page: page })
-  // }, [page, setSearchParams])
+  useEffect(() => {
+    if (isInitialRender === false) {
+      setSearchParams({ page: page })
+    }
+  }, [isInitialRender, page, setSearchParams])
 
   // Only run on initial render.
   useEffect(() => {
@@ -114,6 +119,9 @@ const Films = () => {
         <h1>Films</h1>
 
         <Row className="d-flex justify-content-start g-4">
+
+          {/* Check if apiResponse is truthy and then map over the results */}
+
           {apiResponse && (apiResponse.results.map(film => {
             return (
               <Col md={4} key={film.episode_id}>
