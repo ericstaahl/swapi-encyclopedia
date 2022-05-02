@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import swapi from "../services/swapi"
 import { Container, Row, Col, Button } from "react-bootstrap"
 import { Link, useSearchParams } from "react-router-dom"
@@ -41,44 +41,54 @@ const Characters = () => {
     setSearchParams({ search: searchQuery })
   }
 
-  // set SearchParams to the current page number so 
-  // that you can navigate to it directly from the browser url search bar
-  // unfortunately does not work with the broswer navigation buttons
+  // Function to run on initial render
 
-  useEffect(() => {
-    setSearchParams({ page: page })
-  }, [page, setSearchParams])
+  const initialRender = useCallback(() => {
+    // Needs to check this is user "navigates" to a search using the
+    // browser navigation buttons or directly via url  
+    console.log(searchParams.get('search'))
+    console.log(searchParams.get('page'))
 
-  // Only run on initial render.
-  // Therefore ignoring the lint error about missing dependency.
-  useEffect(() => {
-    if (searchParams.get('page')) {
-      console.log("Initial render is running")
-      console.log(typeof Number(searchParams.get('page')))
-      setPage(Number(searchParams.get('page')))
-      fetchCharacters(`https://swapi.dev/api/people/?${searchParams}`)
-      return
-    }
-    if (!searchParams.get('search')) {
+    if (searchParams.get('page') === null && searchParams.get('search') === null) {
+      console.log("Initial fetch")
       fetchCharacters()
     }
-  }, [])
-
-  // fetch data using the search query everytime searchParams is set.
-
-  useEffect(() => {
-    console.log(searchParams)
-    // make sure it only runs if search is in the url
+    
     if (searchParams.get('search')) {
       console.log("Search running")
       setPage(1)
       setSavedQuery(searchParams.get('search'))
       fetchCharacters(`${baseURL}/people/?${searchParams}`)
-
     }
-  }, [searchParams])
 
+    if (searchParams.get('page')) {
+      console.log("Page search running")
+      setPage(Number(searchParams.get('page')))
+      fetchCharacters(`${baseURL}/people/?${searchParams}`)
+    }
 
+}, [searchParams])
+
+  // set SearchParams to the current page number so 
+  // that you can navigate to it directly from the browser url search bar
+  // unfortunately does not work with the broswer navigation buttons
+
+  // useEffect(() => {
+  //   setSearchParams({ page: page })
+  // }, [page, setSearchParams])
+
+  // Only run on initial render.
+
+  useEffect(() => {
+    initialRender()
+  }, [initialRender])
+
+  // fetch data using the search query everytime searchParams is set.
+
+  // useEffect(() => {
+  //   console.log(searchParams)
+  //   // make sure it only runs if search is in the url
+  // }, [searchParams])
 
   return (
     <>

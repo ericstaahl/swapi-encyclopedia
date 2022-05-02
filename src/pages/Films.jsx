@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import swapi from "../services/swapi"
 import { Container, Row, Col, Button } from "react-bootstrap"
 import { Link, useSearchParams } from "react-router-dom"
@@ -32,30 +32,19 @@ const Films = () => {
     setSearchParams({ search: searchQuery })
   }
 
-  // set SearchParams to the current page number so 
-  // that you can navigate to it directly from the browser url search bar
-  // unfortunately does not work with the broswer navigation buttons
+  // Function to run on initial render
 
-  useEffect(() => {
-    setSearchParams({ page: page })
-  }, [page, setSearchParams])
+  const initialRender = useCallback(() => {
+    // Needs to check this if user "navigates" to a search using the
+    // browser navigation buttons or directly via url  
+    console.log(searchParams.get('search'))
+    console.log(searchParams.get('page'))
 
-  // Only run on initial render.
-  // Therefore ignoring the lint error about missing dependency.
-  useEffect(() => {
-    if (searchParams.get('page')) {
-      console.log("Initial render is running")
-      console.log(typeof Number(searchParams.get('page')))
-      setPage(Number(searchParams.get('page')))
-      fetchFilms(`https://swapi.dev/api/films/?${searchParams}`)
-      return
-    }
-    if (!searchParams.get('search')) {
+    if (searchParams.get('page') === null && searchParams.get('search') === null) {
+      console.log("Initial fetch")
       fetchFilms()
     }
-  }, [searchParams])
 
-  useEffect(() => {
     console.log(searchParams)
     if (searchParams.get('search')) {
       console.log("Search running")
@@ -63,7 +52,27 @@ const Films = () => {
       setSavedQuery(searchParams.get('search'))
       fetchFilms(`${baseURL}/films/?${searchParams}`)
     }
+
+    if (searchParams.get('page')) {
+      console.log("Page search running")
+      setPage(Number(searchParams.get('page')))
+      fetchFilms(`${baseURL}/films/?${searchParams}`)
+    }
+
   }, [searchParams])
+
+  // set SearchParams to the current page number so 
+  // that you can navigate to it directly from the browser url search bar
+  // unfortunately does not work with the broswer navigation buttons
+
+  // useEffect(() => {
+  //   setSearchParams({ page: page })
+  // }, [page, setSearchParams])
+
+  // Only run on initial render.
+  useEffect(() => {
+    initialRender()
+  }, [initialRender])
 
   return (
     <>
@@ -122,7 +131,7 @@ const Films = () => {
               </Col>
             )
           }))}
-          
+
           {apiResponse && apiResponse.count === 0 && (
             <p>No results were found</p>
           )}
