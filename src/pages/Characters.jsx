@@ -35,6 +35,10 @@ const Characters = () => {
     setIsLoading(false)
   }
 
+  // set SearchParams to the current page number so 
+  // that you can navigate to it directly from the browser url search bar
+  // unfortunately does not work with the broswer navigation buttons
+
   useEffect(() => {
     setSearchParams({ page: page })
   }, [page, setSearchParams])
@@ -58,6 +62,7 @@ const Characters = () => {
 
   useEffect(() => {
     console.log(searchParams)
+    // make sure it only runs if search is in the url
     if (searchParams.get('search')) {
       console.log("Search running")
       setPage(1)

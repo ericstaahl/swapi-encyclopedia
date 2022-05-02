@@ -10,7 +10,7 @@ const Character = () => {
     console.log(id)
     const [character, setCharacter] = useState()
 
-    
+
     useEffect(() => {
         const fetchCharacter = async () => {
             const data = await swapi.getCharacter(id)
@@ -30,13 +30,12 @@ const Character = () => {
                         <p>Birth year: {character.birth_year}</p>
                         <p>Height: {character.height} cm</p>
                         <p>Mass: {character.mass} kg</p>
-                        <p>Homeworld: {character.homeworld}</p>
+                        <p>Hair color: {character.hair_color}</p>
                     </div>
                     <h3>In films:</h3>
                     <div>
                         {character.films.map(film => {
                             const filmId = getIdFromUrl(film)
-                            // console.log(characterId)
                             return (
                                 <div key={filmId}>
                                     <Link to={`/films/${filmId}`}>Film {filmId}</Link>
