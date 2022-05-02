@@ -42,7 +42,7 @@ const Characters = () => {
     setSearchParams({ search: searchQuery })
   }
 
-  // Function to run on initial render
+  // Only run this on the initial render of the page
 
   const initialRender = useCallback(() => {
     // Needs to check this is user "navigates" to a search using the
@@ -76,7 +76,7 @@ const Characters = () => {
 
   // set SearchParams to the current page number so 
   // that you can navigate to it directly from the browser url search bar
-  // unfortunately does not work with the broswer navigation buttons
+  // unfortunately does not work with the browser navigation buttons
 
   useEffect(() => {
     if (isInitialRender === false) {
@@ -95,7 +95,7 @@ const Characters = () => {
       <Container className="p-3">
 
         <Row>
-          {/* "Resets" the search by setting the page number to 1 and the savedQuery to an empty string. Then refetches the resource without any extra parameters. */}
+          {/* "Resets" the search by setting the page number to 1 and savedQuery to an empty string. Then refetches the resource without any extra parameters. */}
 
           <Col className="d-flex justify-content-center" xs={12}>
             <Button
