@@ -46,13 +46,16 @@ const Films = () => {
   }, [searchParams])
 
   // fetch data if user navigates to a page without using the pagination buttons.
+  // (Initial render only)
   useEffect(() => {
-    if (searchParams.get('page')) {
-      console.log("Page search running")
-      setPage(Number(searchParams.get('page')))
-      fetchFilms(`${baseURL}/films/?${searchParams}`)
+    if (isInitialRender === true) {
+      if (searchParams.get('page')) {
+        console.log("Page search running")
+        setPage(Number(searchParams.get('page')))
+        fetchFilms(`${baseURL}/films/?${searchParams}`)
+      }
     }
-  }, [searchParams])
+  }, [searchParams, isInitialRender])
 
   // fetch data using the search query everytime searchParams is set.
   useEffect(() => {
@@ -150,7 +153,7 @@ const Films = () => {
         {/* Pagination implemented if the additional movies are ever
           added to the api */}
         {/* Fetch the data using the "next" and "previous" values from the API response. */}
-        
+
         <Row className="m-3">
 
           <Col className="d-flex justify-content-center">

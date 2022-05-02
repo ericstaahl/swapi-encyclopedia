@@ -56,13 +56,16 @@ const Characters = () => {
   }, [searchParams])
 
   // fetch data if user navigates to a page without using the pagination buttons.
+  // (Initial render only)
   useEffect(() => {
-    if (searchParams.get('page')) {
-      console.log("Page search running")
-      setPage(Number(searchParams.get('page')))
-      fetchCharacters(`${baseURL}/people/?${searchParams}`)
+    if (isInitialRender === true) {
+      if (searchParams.get('page')) {
+        console.log("Page search running")
+        setPage(Number(searchParams.get('page')))
+        fetchCharacters(`${baseURL}/people/?${searchParams}`)
+      }
     }
-  }, [searchParams])
+  }, [searchParams, isInitialRender])
 
   // fetch data using the search query everytime searchParams is set.
   useEffect(() => {
