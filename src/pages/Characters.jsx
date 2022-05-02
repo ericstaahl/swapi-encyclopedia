@@ -19,7 +19,6 @@ const Characters = () => {
   const fetchCharacters = async (url) => {
     setIsLoading(true)
     if (url) {
-      // setSearchParams(pageQuery())
       const data = await swapi.getCharacters(url)
       console.log(data)
       setApiResponse(data.data)
@@ -54,6 +53,8 @@ const Characters = () => {
       fetchCharacters()
     }
   }, [])
+
+  // fetch data using the search query everytime searchParams is set.
 
   useEffect(() => {
     console.log(searchParams)
@@ -106,6 +107,8 @@ const Characters = () => {
 
         <Row className="d-flex justify-content-start g-4">
 
+          {/* Check if apiResponse is truthy and then map over the results */}
+
           {apiResponse && (apiResponse.results.map(character => {
             return (
               <Col key={getIdFromUrl(character.url)} md={4}>
@@ -127,6 +130,8 @@ const Characters = () => {
         <Row className="m-3">
 
           <Col className="d-flex justify-content-center">
+
+            {/* Fetch the data using the "next" and "previous" values from the API response. */}
 
             <Button className="mx-2" disabled={prevPageUrl === null || isLoading}
               onClick={() => {
