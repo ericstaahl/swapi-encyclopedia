@@ -26,7 +26,7 @@ const Films = () => {
     setIsLoading(false)
   }
 
-    // set SearchParams to the current page number so 
+  // set SearchParams to the current page number so 
   // that you can navigate to it directly from the browser url search bar
   // unfortunately does not work with the broswer navigation buttons
 
