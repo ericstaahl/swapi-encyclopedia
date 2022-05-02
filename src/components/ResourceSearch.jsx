@@ -6,6 +6,7 @@ const ResourceSearch = (props) => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault()
+    // function passed down as prop to set searchParams in parent component.
     props.onSearch(searchQuery)
   }
 
