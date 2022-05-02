@@ -81,7 +81,7 @@ const Characters = () => {
 
   useEffect(() => {
     initialRender()
-  }, [])
+  }, [initialRender])
 
   // fetch data using the search query everytime searchParams is set.
 
