@@ -73,6 +73,7 @@ const Characters = () => {
       <Container className="p-3">
 
         <Row>
+          {/* "Resets" the search by setting the page number to 1 and the savedQuery to an empty string. Then refetches the resource without any extra parameters. */}
 
           <Col className="d-flex justify-content-center" xs={12}>
             <Button
@@ -86,7 +87,7 @@ const Characters = () => {
             </Button>
             <ResourceSearch></ResourceSearch>
           </Col>
-
+          
         </Row>
 
         <Row>
@@ -94,13 +95,15 @@ const Characters = () => {
           <Col xs={8}>
             {savedQuery && (
               <div>
-                <p>Search results for {savedQuery}</p>
+                <p className="search-result-text">Search results for <span>{savedQuery}</span></p>
               </div>
-            )}</Col>
+            )}
+          </Col>
 
         </Row>
 
         <h1>Characters</h1>
+
         <Row className="d-flex justify-content-start g-4">
 
           {apiResponse && (apiResponse.results.map(character => {
@@ -120,7 +123,9 @@ const Characters = () => {
           }))}
 
         </Row>
+
         <Row className="m-3">
+
           <Col className="d-flex justify-content-center">
 
             <Button className="mx-2" disabled={prevPageUrl === null || isLoading}
@@ -140,6 +145,7 @@ const Characters = () => {
             </Button>
 
           </Col>
+
         </Row>
 
       </Container>

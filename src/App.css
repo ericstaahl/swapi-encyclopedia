@@ -3,6 +3,14 @@
   box-sizing: border-box;
 }
 
+.search-result-text {
+  font-size: 1.3rem;
+}
+.search-result-text span {
+  font-weight: 600;
+}
+
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

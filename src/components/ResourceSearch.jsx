@@ -27,12 +27,6 @@ const ResourceSearch = () => {
         </Form.Group>
         <Button type="submit" className="mx-2">Search</Button>
       </Form>
-{/* 
-      {searchParams.get('search') && (
-        <div>
-          <p>Search results for {savedQuery}</p>
-        </div>
-      )} */}
     </>
   )
 }
