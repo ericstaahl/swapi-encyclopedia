@@ -135,9 +135,13 @@ const Characters = () => {
               }}>{"< Page"}
             </Button>
 
-            <p>{page}/{Math.ceil(apiResponse.count / 10)}</p>
+            <p>{page}/
+              {apiResponse.count ? Math.ceil(apiResponse.count / 10) : 1}
+            </p>
 
-            <Button className="mx-2" disabled={nextPageUrl === null || isLoading}
+            <Button
+              className="mx-2"
+              disabled={nextPageUrl === null || isLoading}
               onClick={() => {
                 setPage(page + 1)
                 fetchCharacters(nextPageUrl)
